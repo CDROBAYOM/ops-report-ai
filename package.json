@@ -1,0 +1,24 @@
+{
+    "name": "ops-report-ai",
+    "version": "0.1.0",
+    "description": "Demostración de arquitectura sólida para reportes operativos en pymes — el problema de negocio define la solución, no al revés.",
+    "private": true,
+    "scripts": {
+        "start": "node dist/main.js",
+        "dev": "ts-node src/main.ts",
+        "build": "tsc",
+        "test": "jest",
+        "test:unit": "jest test/unit",
+        "test:integration": "jest test/integration",
+        "lint": "eslint src/**/*.ts"
+    },
+    "keywords": [
+        "arquitectura-hexagonal",
+        "pymes",
+        "reportes-operativos",
+        "ia-responsable",
+        "nestjs"
+    ],
+    "author": "Carlos David Robayo",
+    "license": "MIT"
+}
