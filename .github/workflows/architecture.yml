@@ -1,0 +1,75 @@
+name: Architecture
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Este job es requisito de merge (branch protection rule en GitHub).
+# Si falla, no se puede hacer merge a main.
+# Ver: docs/adr/ADR-001.md, ADR-002.md, ADR-003.md
+
+jobs:
+  architecture:
+    name: Fitness Functions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ─── ADR-001: reglas de dependencia ────────────────────────────────────
+      - name: "[ADR-001] Verificar reglas de dependencia (dependency-cruiser)"
+        run: |
+          npx dependency-cruiser \
+            --config .dependency-cruiser.cjs \
+            --output-type err \
+            src
+        # Falla si:
+        # - core/domain importa desde infrastructure
+        # - core/domain importa desde @nestjs/*
+        # - existe algún ciclo de dependencia
+
+      # ─── ADR-000: validación del registro de métricas ──────────────────────
+      - name: "[ADR-000] Validar config/metrics.yaml contra el schema"
+        run: |
+          npx --yes ajv-cli validate \
+            -s config/metrics.schema.json \
+            -d <(npx --yes js-yaml config/metrics.yaml) \
+            --strict-schema false
+        # Falla si:
+        # - falta algún campo obligatorio en una métrica
+        # - un campo tiene valor vacío
+        # - el estado o la frecuencia no pertenecen al vocabulario permitido
+
+      # ─── ADR-002: pruebas de contrato de ingesta ──────────────────────────
+      - name: "[ADR-002] Pruebas de contrato de ingesta"
+        run: npm run test -- --testPathPattern="test/integration/ingesta"
+        # Falla si el adaptador no produce la entidad de dominio correcta
+        # o la AlertaOperativa correspondiente ante cada tipo de fuente.
+
+      # ─── ADR-003: prueba de lista blanca de campos ────────────────────────
+      - name: "[ADR-003] Prueba de lista blanca de campos hacia la IA"
+        run: npm run test -- --testPathPattern="test/unit/ai"
+        # Falla si:
+        # - un campo no autorizado aparece en el payload al modelo
+        # - la respuesta omite valor_original, valor_normalizado o version_modelo
+
+      # ─── Fase 4: calidad de los propios ADRs ──────────────────────────────
+      - name: "[ADRs] Verificar calidad de los documentos ADR"
+        run: node scripts/check-adrs.js
+        # Falla si:
+        # - algún ADR tiene front matter incompleto o estado inválido
+        # - faltan secciones obligatorias
+        # - hay enlaces rotos
+        # - un ADR aceptado no tiene sección de verificación

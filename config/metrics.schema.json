@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Registro de métricas de negocio — ops-report-ai",
+  "description": "Valida config/metrics.yaml conforme a ADR-000. Todos los campos son obligatorios y no pueden estar vacíos.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "required": ["id", "owner", "decision_que_soporta", "frecuencia", "umbral_anomalia", "metrica_de_exito"],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z][a-z0-9_]*$",
+        "description": "Identificador único en snake_case. Ejemplo: ventas_diarias."
+      },
+      "owner": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Nombre y rol del responsable nombrado del dato. No puede ser un área genérica."
+      },
+      "decision_que_soporta": {
+        "type": "string",
+        "minLength": 1,
+        "description": "La decisión de negocio concreta que esta métrica habilita."
+      },
+      "frecuencia": {
+        "type": "string",
+        "enum": ["diaria", "semanal", "mensual"],
+        "description": "Con qué frecuencia debe actualizarse esta métrica."
+      },
+      "umbral_anomalia": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Qué constituye una anomalía, definido con el negocio."
+      },
+      "metrica_de_exito": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Cómo se medirá la mejora. Debe existir antes de empezar."
+      }
+    }
+  }
+}

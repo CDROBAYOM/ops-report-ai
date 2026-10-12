@@ -10,7 +10,11 @@
         "test": "jest",
         "test:unit": "jest test/unit",
         "test:integration": "jest test/integration",
-        "lint": "eslint src/**/*.ts"
+        "lint": "eslint src/**/*.ts",
+        "arch:deps": "depcruise --config .dependency-cruiser.cjs --output-type err src",
+        "arch:metrics": "ajv validate -s config/metrics.schema.json -d config/metrics.yaml",
+        "arch:adrs": "node scripts/check-adrs.js",
+        "arch": "npm run arch:deps && npm run arch:metrics && npm run arch:adrs"
     },
     "keywords": [
         "arquitectura-hexagonal",

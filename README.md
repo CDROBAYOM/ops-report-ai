@@ -78,6 +78,24 @@ Antes de diseñar cualquier solución, hay que poder responder con precisión:
 
 ---
 
+## Decisiones de arquitectura (ADRs)
+
+| ADR | Decisión | Estado | Fitness function |
+|---|---|---|---|
+| [ADR-000](docs/adr/ADR-000.md) | El negocio define métricas, modelo y responsabilidad antes del desarrollo | ✅ aceptado | `config/metrics.schema.json` validado en CI |
+| [ADR-001](docs/adr/ADR-001.md) | Arquitectura hexagonal (Ports & Adapters) | ✅ aceptado | `dependency-cruiser`: dominio sin infraestructura ni `@nestjs/*`, sin ciclos |
+| [ADR-002](docs/adr/ADR-002.md) | Ingesta desde fuentes heterogéneas con adaptador tolerante | ✅ aceptado | Pruebas de contrato por tipo de fuente en `test/integration/ingesta/` |
+| [ADR-003](docs/adr/ADR-003.md) | Alcance y límites del uso de IA en la normalización | ✅ aceptado | Prueba de lista blanca de campos en `test/unit/ai/` |
+
+📋 [Ver índice completo de ADRs](docs/adr/README.md)
+
+## Arquitectura (diagramas C4)
+
+- [C4 Contexto](docs/architecture/01-context.md) — actores y flujos del sistema
+- [C4 Contenedores](docs/architecture/02-containers.md) — componentes internos y puertos
+
+---
+
 ## Autor
 
 **David Robayo**

@@ -1,0 +1,25 @@
+# config/metrics.yaml
+# Registro de métricas de negocio — ops-report-ai
+# Validado por config/metrics.schema.json en CI (ADR-000)
+# Todos los campos son obligatorios. Un campo vacío bloquea el build.
+
+- id: indice_mora
+  owner: "Carlos García / Gerente de Riesgo"
+  decision_que_soporta: "Activar el comité de riesgo cuando la mora supera el umbral acordado"
+  frecuencia: semanal
+  umbral_anomalia: "Variación mayor al 5% respecto a la semana anterior"
+  metrica_de_exito: "Reducción del índice de mora al 3% en el primer trimestre"
+
+- id: cartera_vencida
+  owner: "Carlos García / Gerente de Riesgo"
+  decision_que_soporta: "Priorizar la gestión de cobro sobre los créditos con mayor antigüedad"
+  frecuencia: semanal
+  umbral_anomalia: "Incremento mayor a 10 créditos nuevos en mora en una semana"
+  metrica_de_exito: "Reducción del 15% en el saldo de cartera vencida en 90 días"
+
+- id: creditos_procesados
+  owner: "Ana Martínez / Responsable operativo"
+  decision_que_soporta: "Confirmar que el proceso de ingesta completó correctamente antes del reporte gerencial"
+  frecuencia: diaria
+  umbral_anomalia: "Menos del 95% de los créditos esperados procesados sin alerta"
+  metrica_de_exito: "100% de los archivos semanales procesados sin AlertaOperativa en el mes"
