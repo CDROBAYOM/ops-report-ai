@@ -14,7 +14,10 @@
         "arch:deps": "depcruise --config .dependency-cruiser.cjs --output-type err src",
         "arch:metrics": "ajv validate -s config/metrics.schema.json -d config/metrics.yaml",
         "arch:adrs": "node scripts/check-adrs.js",
-        "arch": "npm run arch:deps && npm run arch:metrics && npm run arch:adrs"
+        "arch": "npm run arch:deps && npm run arch:metrics && npm run arch:adrs",
+        "docs:dev": "npm --prefix website run dev",
+        "docs:build": "npm --prefix website run build",
+        "docs:preview": "npm --prefix website run preview"
     },
     "keywords": [
         "arquitectura-hexagonal",

@@ -1,0 +1,47 @@
+---
+title: ops-report-ai
+description: Demostración de arquitectura sólida para reportes operativos en pymes
+template: splash
+hero:
+  tagline: El problema de negocio define la solución, no al revés. Demostración práctica de arquitectura hexagonal, métricas de negocio y uso responsable de IA.
+  actions:
+    - text: Explorar Arquitectura
+      link: /ops-report-ai/architecture/01-context/
+      icon: right-arrow
+      variant: primary
+    - text: Ver ADRs
+      link: /ops-report-ai/adr/
+      icon: document
+      variant: secondary
+    - text: Ver en GitHub
+      link: https://github.com/CDROBAYOM/ops-report-ai
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Pilares del Sistema
+
+<CardGrid stagger>
+	<Card title="Arquitectura Hexagonal" icon="puzzle">
+		Aislamiento estricto del dominio (Ports & Adapters). Las fuentes externas (Excel, APIs) y adaptadores de salida nunca contaminan las reglas de negocio.
+	</Card>
+	<Card title="IA Responsable y Acotada" icon="warning">
+		La IA asiste en normalización y explicabilidad técnica, pero nunca toma decisiones de negocio ni define métricas por su cuenta.
+	</Card>
+	<Card title="Fitness Functions en CI" icon="approve-check-circle">
+		Pruebas arquitectónicas automatizadas que garantizan las reglas de dependencia (ADR-001), esquemas de métricas (ADR-000) y contratos de ingesta (ADR-002).
+	</Card>
+	<Card title="Trazabilidad y Calidad de ADRs" icon="open-book">
+		Todas las decisiones técnicas están documentadas con su impacto en negocio y verificadas por scripts automatizados de calidad.
+	</Card>
+</CardGrid>
+
+---
+
+## Estructura de la Documentación
+
+- **[Caso de Referencia](/ops-report-ai/context/caso-referencia/)**: El problema real de CoopNorte, discrepancias entre áreas y costo de decidir sin datos unificados.
+- **[Plan de Implementación](/ops-report-ai/spec/plan/)**: Fases del proyecto, entregables y criterios de aceptación.
+- **[Arquitectura C4](/ops-report-ai/architecture/01-context/)**: Diagramas de contexto y contenedores del sistema.
+- **[Decisiones de Arquitectura (ADRs)](/ops-report-ai/adr/)**: Registro formal de decisiones técnicas (ADR-000 a ADR-003).
